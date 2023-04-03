@@ -1,2 +1,2 @@
 # solving-for-india-hackathon
-Move to myapp, then Run by using command npm start
+Move to my-app, then Run command npm start in terminal to run the website in localhost.
