@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import Header from "./Header";
+import BarcodeGenerator from "./BarcodeGenerator";
+import chart from "../chart.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
@@ -18,6 +21,7 @@ const Dashboard = () => {
   const [isfc, setIsfc] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
   const [role, setRole] = useState("");
+  const [balance, setBalance] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,181 +49,79 @@ const Dashboard = () => {
     await signOut(auth);
     navigate("/login");
   };
+
   return (
     <div>
-      {params.id}
-      {email}
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          Navbar
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <Header />
+      <div style={{ textAlign: "center" }}>
+        <h3>Dashboard</h3>
+      </div>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">
-                Home <span class="sr-only">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Link
-              </a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">
-                  Action
-                </a>
-                <a class="dropdown-item" href="#">
-                  Another action
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
-                  Something else here
-                </a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled" href="#">
-                Disabled
-              </a>
-            </li>
-          </ul>
-          <Button className="mb-maxw mybtn" onClick={logout}>
-            Logout
-          </Button>
-        </div>
-      </nav>
-      <h3>Dashboard</h3>
+      <div>
+        <h4>
+          Hey, {fName} {lName}
+        </h4>
+      </div>
+      <br />
       <div class="container">
-        <div class="row hidden-md-up">
-          <div class="col-md-4 p-1">
+        <div class="row hidden-md-up" style={{ textAlign: "center" }}>
+          <div class="col-md-4 p-1 ms-auto">
             <div class="card p-3">
               <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                <p class="card-text p-y-1">
-                  Some quick example text to build on the card title .
-                </p>
-                <a href="#" class="card-link">
-                  link
-                </a>
-                <a href="#" class="card-link">
-                  Second link
-                </a>
+                <h4 class="card-title text-primary">Balance</h4>
+                <h5 class="card-subtitle">Rs. 10000</h5>
               </div>
             </div>
           </div>
-          <div class="col-md-4 p-1">
+          <div class="col-md-4 p-1 me-auto">
             <div class="card p-3">
               <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                <p class="card-text p-y-1">
-                  Some quick example text to build on the card title .
-                </p>
-                <a href="#" class="card-link">
-                  link
-                </a>
-                <a href="#" class="card-link">
-                  Second link
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 p-1">
-            <div class="card p-3">
-              <div class="card-block">
-                <h4 class="card-title">Card title</h4>
-                <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-                <p class="card-text p-y-1">
-                  Some quick example text to build on the card title .
-                </p>
-                <a href="#" class="card-link">
-                  link
-                </a>
-                <a href="#" class="card-link">
-                  Second link
-                </a>
+                <h4 class="card-title text-primary">Expenses</h4>
+                <h5 class="card-subtitle">Rs. 444</h5>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-12 p-1">
+        <br></br>
+        <div class="col-md-4 p-1 mx-auto">
           <div class="card p-3">
             <div class="card-block">
-              <h4 class="card-title">Card title</h4>
-              <h6 class="card-subtitle text-muted">Support card subtitle</h6>
-              <p class="card-text p-y-1">
-                Some quick example text to build on the card title .
-              </p>
-              <a href="#" class="card-link">
-                link
-              </a>
-              <a href="#" class="card-link">
-                Second link
-              </a>
+              <h4 class="card-title text-primary">Expense Graph</h4>
+              <div style={{ width: 300 }}>
+                <img src={chart}></img>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="my-2" style={{ textAlign: "center" }}>
+        <button className="m-2 btn btn-primary">BarCode Generator</button>
+        <button className="m-2 btn btn-primary">BarCode Scanner</button>
+      </div>
+      <div className="my-2" style={{ textAlign: "center" }}>
+        <button className="m-2 btn btn-primary">QRCode Generator</button>
+        <button className="m-2 btn btn-primary">QRCode Scanner</button>
+      </div>
       <div className="container">
         <h3>Transaction History</h3>
         <div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Payer Name</th>
-                <th scope="col">Amount Paid</th>
-                <th scope="col">Approved</th>
-                <th scope="col">Time Of Transaction</th>
-                <th scope="col">Number of Items</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td scope="col">1234</td>
-                <td scope="col">$42</td>
-                <td scope="col">Yes</td>
-                <td scope="col">12:09</td>
-                <td scope="col">69</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="shadow p-3 mb-5 bg-white rounded w-100 d-flex justify-content-between">
+            <div className="d-flex flex-column">
+              <div className="transaction-name h4">Payer Name</div>
+              <div className="transaction-approval text-secondary">
+                ✔️Approved
+              </div>
+            </div>
+            <div className="d-flex flex-column">
+              <div className="transaction-price text-danger h4">
+                {" "}
+                -42,069 Rs.
+              </div>
+              <div className="transaction-date text-secondary">
+                17 August, 2022
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
