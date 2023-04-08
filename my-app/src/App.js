@@ -8,16 +8,16 @@ import DetailsUser from "./components/DetailsUser";
 
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+// import { ToastContainer } from "react-toastify";
 
 const App = () => {
   return (
     <>
       <Container
-        className="d-flex align-items-center justify-content-center"
+        className=""
         style={{ minHeight: "100vh" }}
       >
-        <div className="w-100" style={{ maxWidth: "400px" }}>
+        <div className="">
           {/* <ToastContainer /> */}
           <BrowserRouter>
             <Routes>

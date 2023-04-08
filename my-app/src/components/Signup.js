@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import DetailsUser from "./DetailsUser";
 
 const Signup = () => {
@@ -33,7 +33,7 @@ const Signup = () => {
         setError("Successfully signed up");
         console.log(res);
         const user = res.user;
-        toast.success("User Saved Sucessfully");
+        // toast.success("User Saved Sucessfully");
         await addDoc(collection(db, "users"), {
           uid: user.uid,
           firstName: fName,
@@ -48,14 +48,14 @@ const Signup = () => {
         });
       } else if (password !== passwordConfirm) {
         setError("Password Not Matched");
-        toast.error("Password Not Matched!");
+        // toast.error("Password Not Matched!");
       } else {
         setError("Failed to save");
-        toast.error("Failed to save");
+        // toast.error("Failed to save");
       }
     } catch (error) {
       setError(error);
-      toast.error("Failed : " + error.message);
+      // toast.error("Failed : " + error.message);
     }
   };
 
