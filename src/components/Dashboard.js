@@ -4,6 +4,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 import Header from "./Header";
 import BarcodeGenerator from './BarcodeGenerator'
+import chart from '../chart.png'
 
 const Dashboard = () => {
   return (
@@ -39,7 +40,9 @@ const Dashboard = () => {
           <div class="card p-3">
             <div class="card-block">
               <h4 class="card-title text-primary">Expense Graph</h4>
-              <div style={{height:150}}></div>
+              <div style={{width:300}}>
+                <img src={chart}></img>
+              </div>
             </div>
           </div>
         </div>
@@ -55,34 +58,16 @@ const Dashboard = () => {
       <div className="container">
         <h3>Transaction History</h3>
         <div>
-          <div className="shadow p-3 mb-5 bg-white rounded w-100">
-            <div className="transaction-heading">Grocery</div>
-            <div className="transaction-subheading">Whole Foods Market</div>
-            <div className="transaction-price">42,069 Rs.</div>
-            <div className=""></div>
+          <div className="shadow p-3 mb-5 bg-white rounded w-100 d-flex justify-content-between">
+            <div className="d-flex flex-column">
+              <div className="transaction-name h4">Payer Name</div>
+              <div className="transaction-approval text-secondary">✔️Approved</div>
+            </div>
+            <div className="d-flex flex-column">
+              <div className="transaction-price text-danger h4"> -42,069 Rs.</div>
+              <div className="transaction-date text-secondary">17 August, 2022</div>
+            </div>
           </div>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">Payer Name</th>
-                <th scope="col">Amount Paid</th>
-                <th scope="col">Approved</th>
-                <th scope="col">Time Of Transaction</th>
-                <th scope="col">Number of Items</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td scope="col">Priyanshu</td>
-                <td scope="col">$42</td>
-                <td scope="col">Yes</td>
-                <td scope="col">12:09</td>
-                <td scope="col">69</td>
-              </tr>
-              
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
