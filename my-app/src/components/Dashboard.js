@@ -128,10 +128,12 @@ const Dashboard = () => {
       <table class="table table-striped">
       <thead>
     <tr>
-      <th scope="col">Merchant ID</th>
+      <th scope="col">Payer Name</th>
       <th scope="col">Amount Paid</th>
       <th scope="col">Approved</th>
       <th scope="col">Time Of Transaction</th>
+      <th scope="col">Number of Items</th>
+
     </tr>
   </thead>
   <tbody>
@@ -140,6 +142,7 @@ const Dashboard = () => {
       <td scope="col">$42</td>
       <td scope="col">Yes</td>
       <td scope="col">12:09</td>
+      <td scope="col">69</td>
     </tr>
     <tr>
       <th scope="row">2</th>
