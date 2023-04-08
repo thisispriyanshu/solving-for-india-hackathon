@@ -6,6 +6,7 @@ import Dashboard from "./components/Dashboard";
 import DetailsUser from "./components/DetailsUser";
 import { Container } from "react-bootstrap";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import BarcodeScanner from "./components/BarcodeScanner";
 import BarcodeGenerator from "./components/BarcodeGenerator";
 import QRcodeGenerator from "./components/QRcodeGenerator";
@@ -19,6 +20,7 @@ const App = () => {
         style={{ minHeight: "100vh" }}
       >
         <div className="w-100" style={{ maxWidth: "400px" }}>
+          {/* <ToastContainer /> */}
           <BrowserRouter>
             <Routes>
               <Route path='/bscan' Component={BarcodeScanner}/>
