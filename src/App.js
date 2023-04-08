@@ -10,25 +10,23 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BarcodeScanner from "./components/BarcodeScanner";
 import BarcodeGenerator from "./components/BarcodeGenerator";
 import QRcodeGenerator from "./components/QRcodeGenerator";
-import QRcodeScanner from './components/QRcodeScanner'
+import QRcodeScanner from "./components/QRcodeScanner";
 
 const App = () => {
   return (
     <>
-      <Container
-        className=""
-        style={{ minHeight: "100vh" }}
-      >
+      <Container className="" style={{ minHeight: "100vh" }}>
         <div className="">
           {/* <ToastContainer /> */}
           <BrowserRouter>
             <Routes>
-              <Route path='/bscan' Component={BarcodeScanner}/>
-              <Route path='/bgenerate' Component={BarcodeGenerator}/>
-              <Route path='/qgenerate' Component={QRcodeGenerator}/>
-              <Route path='/qscan' Component={QRcodeScanner}/>
+              <Route path="/bscan" Component={BarcodeScanner} />
+              <Route path="/bgenerate" Component={BarcodeGenerator} />
+              <Route path="/qgenerate" Component={QRcodeGenerator} />
+              <Route path="/qscan" Component={QRcodeScanner} />
               <Route path="/signup" Component={Signup} />
               <Route path="/login" Component={Login} />
+              <Route path="/:id/dashboard" Component={Dashboard} />
               <Route path="/dashboard" Component={Dashboard} />
               <Route path="/detailsUser" Component={DetailsUser} />
             </Routes>

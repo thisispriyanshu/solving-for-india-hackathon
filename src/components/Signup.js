@@ -6,6 +6,7 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { auth } from "../firebase";
 import { Container } from "react-bootstrap";
+import { Navigate } from "react-router-dom";
 import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import DetailsUser from "./DetailsUser";
@@ -24,6 +25,7 @@ const Signup = () => {
   const [bankAccNo, setBankAccNo] = useState("");
   const [isfcCode, setIsfcCode] = useState("");
   const [gstin, setGstin] = useState("");
+  const navigate = useNavigate();
 
   const register = async (e) => {
     e.preventDefault();
@@ -33,7 +35,7 @@ const Signup = () => {
         setError("Successfully signed up");
         console.log(res);
         const user = res.user;
-        await addDoc(collection(db, "users"), {
+        const saved = await addDoc(collection(db, "users"), {
           uid: user.uid,
           firstName: fName,
           lastName: lName,
@@ -45,6 +47,7 @@ const Signup = () => {
           isfcCode: isfcCode,
           gstin: gstin,
         });
+        navigate("/" + saved.id + "/dashboard");
       } else if (password !== passwordConfirm) {
         setError("Password Not Matched");
       } else {
