@@ -23,14 +23,14 @@ const App = () => {
           {/* <ToastContainer /> */}
           <BrowserRouter>
             <Routes>
-              <Route path='bscan' Component={BarcodeScanner}/>
-              <Route path='bgenerate' Component={BarcodeGenerator}/>
-              <Route path='qgenerate' Component={QRcodeGenerator}/>
-              <Route path='qscan' Component={QRcodeScanner}/>
-              <Route path="signup" Component={Signup} />
-              <Route path="login" Component={Login} />
-              <Route path="dashboard" Component={Dashboard} />
-              <Route path="detailsUser" Component={DetailsUser} />
+              <Route path='/bscan' Component={BarcodeScanner}/>
+              <Route path='/bgenerate' Component={BarcodeGenerator}/>
+              <Route path='/qgenerate' Component={QRcodeGenerator}/>
+              <Route path='/qscan' Component={QRcodeScanner}/>
+              <Route path="/signup" Component={Signup} />
+              <Route path="/login" Component={Login} />
+              <Route path="/dashboard" Component={Dashboard} />
+              <Route path="/detailsUser" Component={DetailsUser} />
             </Routes>
           </BrowserRouter>
         </div>
