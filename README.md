@@ -1,4 +1,4 @@
-## Things Done
+## PayTogether
 #### Signup with firebase
 #### Data getting stored in firestore DB
 
