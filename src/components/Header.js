@@ -12,7 +12,7 @@ export default function Header() {
     <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
-          Pay Together
+          PayTogether
         </a>
         <button
           class="navbar-toggler"

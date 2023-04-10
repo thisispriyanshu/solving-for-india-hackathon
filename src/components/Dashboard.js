@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Navigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
+import ManageChild from "./ManageChild";
 
 const Dashboard = () => {
   const params = useParams();
@@ -102,6 +103,8 @@ const Dashboard = () => {
         <button className="m-2 btn btn-primary">QRCode Generator</button>
         <button className="m-2 btn btn-primary">QRCode Scanner</button>
       </div>
+      <ManageChild />
+      <br />
       <div className="container">
         <h3>Transaction History</h3>
         <div>
