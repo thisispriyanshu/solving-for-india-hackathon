@@ -25,7 +25,7 @@ const ManageChild = () => {
 
   const addChild = async (e) => {
     e.preventDefault();
-    if (password === passwordConfirm && password.length() >= 6) {
+    if (password === passwordConfirm && password.length >= 6) {
       try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
@@ -70,12 +70,22 @@ const ManageChild = () => {
   return (
     <div>
       {success !== "" && (
-        <Alert key="success" variant="success" dismissible>
+        <Alert
+          key="success"
+          onClose={() => setSuccess("")}
+          variant="success"
+          dismissible
+        >
           {success}
         </Alert>
       )}
       {error !== "" && (
-        <Alert key="danger" variant="danger" dismissible>
+        <Alert
+          key="danger"
+          onClose={() => setError("")}
+          variant="danger"
+          dismissible
+        >
           {error}
         </Alert>
       )}
