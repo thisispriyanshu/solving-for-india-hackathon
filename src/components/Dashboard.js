@@ -12,6 +12,7 @@ import { Navigate } from "react-router-dom";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import ManageChild from "./ManageChild";
+import Graph from "./Graph";
 
 const Dashboard = () => {
   const params = useParams();
@@ -84,12 +85,13 @@ const Dashboard = () => {
           </div>
         </div>
         <br></br>
-        <div class="col-md-4 p-1 mx-auto">
+        <div class="col-md-7 p-1 mx-auto">
           <div class="card p-3">
             <div class="card-block">
               <h4 class="card-title text-primary">Expense Graph</h4>
-              <div style={{ width: 300 }}>
-                <img src={chart}></img>
+              <div>
+                {/* <img src={chart}></img> */}
+                <Graph/>
               </div>
             </div>
           </div>
