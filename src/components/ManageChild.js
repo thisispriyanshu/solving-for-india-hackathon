@@ -6,7 +6,13 @@ import { Form, Card, Alert } from "react-bootstrap";
 import { Modal } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import {
+  doc,
+  addDoc,
+  updateDoc,
+  arrayUnion,
+  collection,
+} from "firebase/firestore";
 import { auth } from "../firebase";
 import { db } from "../firebase";
 
@@ -29,19 +35,28 @@ const ManageChild = () => {
       try {
         const res = await createUserWithEmailAndPassword(auth, email, password);
         const user = res.user;
-        const saved = await addDoc(
-          collection(db, "users/" + params.id + "/children"),
-          {
-            uid: user.uid,
-            firstName: fName,
-            lastName: lName,
-            email: email,
-            password: password,
-            phoneNum: phoneNum,
-            age: age,
-            limit: lim,
-          }
-        );
+        const saved = await addDoc(collection(db, "users"), {
+          uid: user.uid,
+          firstName: fName,
+          lastName: lName,
+          email: email,
+          password: password,
+          phoneNum: phoneNum,
+          age: age,
+          role: "Children",
+          parentId: params.id,
+          limit: lim,
+        });
+        const docRef = doc(db, "users", params.id);
+        await updateDoc(docRef, {
+          children: arrayUnion(saved.id),
+        });
+        // const savedInParent = await addDoc(
+        //   collection(db, "users/" + params.id + "/children"),
+        //   {
+        //     childrenId: saved.id,
+        //   }
+        // );
         setSuccess("Child Added Successfully");
         setFname("");
         setLname("");
