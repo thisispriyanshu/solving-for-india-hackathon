@@ -24,7 +24,7 @@ const App = () => {
               <Route path="/bgenerate" Component={BarcodeGenerator} />
               <Route path="/qgenerate" Component={QRcodeGenerator} />
               <Route path="/qscan" Component={QRcodeScanner} />
-              <Route path="/signup" Component={Signup} />
+              <Route path="/" Component={Signup} />
               <Route path="/login" Component={Login} />
               <Route path="/:id/dashboard" Component={Dashboard} />
               <Route path="/dashboard" Component={Dashboard} />
