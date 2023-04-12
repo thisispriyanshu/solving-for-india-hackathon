@@ -1,5 +1,5 @@
-import { CropDin } from "@mui/icons-material";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import { Form, Card, Alert } from "react-bootstrap";
@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import {
   doc,
+  getDoc,
   addDoc,
   updateDoc,
   arrayUnion,
@@ -15,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { auth } from "../firebase";
 import { db } from "../firebase";
+import ChildCard from "./ChildCard";
 
 const ManageChild = () => {
   const [fName, setFname] = useState("");
@@ -27,7 +29,32 @@ const ManageChild = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+
+  const [childrenIds, setChildrenIds] = useState();
+  const [children, setChildren] = useState([]);
+  const [len, setLen] = useState();
   const params = useParams();
+
+  useEffect(() => {
+    const fetchChildren = async () => {
+      const docRef = doc(db, "users", params.id);
+      const docSnap = await getDoc(docRef);
+      const d = docSnap.data();
+      console.log(d);
+      setChildrenIds(d.children);
+      setLen(childrenIds.length);
+    };
+    const findChild = async () => {
+      for (let index = 0; index < childrenIds.length; index++) {
+        const docRef = doc(db, "users", childrenIds[index]);
+        const found = await getDoc(docRef);
+        const d = found.data();
+        setChildren((arr) => [...arr, d]);
+      }
+    };
+    fetchChildren();
+    findChild();
+  });
 
   const addChild = async (e) => {
     e.preventDefault();
@@ -51,12 +78,7 @@ const ManageChild = () => {
         await updateDoc(docRef, {
           children: arrayUnion(saved.id),
         });
-        // const savedInParent = await addDoc(
-        //   collection(db, "users/" + params.id + "/children"),
-        //   {
-        //     childrenId: saved.id,
-        //   }
-        // );
+
         setSuccess("Child Added Successfully");
         setFname("");
         setLname("");
@@ -84,6 +106,10 @@ const ManageChild = () => {
   };
   return (
     <div>
+      {/* {childrenIds} */}
+      {/* {len} */}
+      {/* {typeof children} */}
+      {/* {JSON.stringify(children)} */}
       {success !== "" && (
         <Alert
           key="success"
@@ -246,76 +272,9 @@ const ManageChild = () => {
                 </Button>
               </Modal.Footer>
             </Modal>
-            <Card
-              style={{
-                marginBottom: 10,
-              }}
-            >
-              <Card.Body>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Card.Title>Manan</Card.Title>
-                    <Card.Text>Email</Card.Text>
-                    <Card.Text>Password</Card.Text>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Card.Text>Balance</Card.Text>
-                    <Card.Text>Expense</Card.Text>
-                    <Button
-                      style={{
-                        width: 200,
-                      }}
-                    >
-                      See all transactions
-                    </Button>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
-            <Card>
-              <Card.Body>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <div>
-                    <Card.Title>Ayush</Card.Title>
-                    <Card.Text>Email</Card.Text>
-                    <Card.Text>Password</Card.Text>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                    }}
-                  >
-                    <Card.Text>Balance</Card.Text>
-                    <Card.Text>Expense</Card.Text>
-                    <Button
-                      style={{
-                        width: 200,
-                      }}
-                    >
-                      See all transactions
-                    </Button>
-                  </div>
-                </div>
-              </Card.Body>
-            </Card>
+            {children.map((child) => {
+              return <ChildCard />;
+            })}
           </Card.Body>
         </Card>
       </div>
