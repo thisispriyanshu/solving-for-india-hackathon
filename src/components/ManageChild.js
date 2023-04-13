@@ -31,10 +31,10 @@ const ManageChild = () => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
   const [childrenIds, setChildrenIds] = useState();
-  const [children, setChildren] = useState([]);
+  const [children, setChildren] = useState(new Map());
   const [len, setLen] = useState();
   const params = useParams();
-
+  // let extracted;
   useEffect(() => {
     const fetchChildren = async () => {
       const docRef = doc(db, "users", params.id);
@@ -49,12 +49,21 @@ const ManageChild = () => {
         const docRef = doc(db, "users", childrenIds[index]);
         const found = await getDoc(docRef);
         const d = found.data();
-        setChildren((arr) => [...arr, d]);
+        setChildren((map) => new Map(map.set(d.uid, d.firstName)));
+        // setChildren((arr) => [...arr, d]);
+        // children.set(d.uid, d.firstName);
+        // extracted = Object.values(children);
       }
     };
-    fetchChildren();
     findChild();
+    fetchChildren();
   });
+
+  const extractInfo = () => {
+    for (let [key, value] of children) {
+      console.log(key + " = " + value);
+    }
+  };
 
   const addChild = async (e) => {
     e.preventDefault();
@@ -108,8 +117,15 @@ const ManageChild = () => {
     <div>
       {/* {childrenIds} */}
       {/* {len} */}
-      {/* {typeof children} */}
-      {/* {JSON.stringify(children)} */}
+      {/* {Object.values(children)} */}
+      {/* {extracted} */}
+      {/* {JSON.stringify(children.keys())} */}
+      {/* {children} */}
+      {Object.keys(children).map(function (key) {
+        return <div key={key}>this is a test</div>;
+      })}
+      {typeof children}
+      {JSON.stringify(children)}
       {success !== "" && (
         <Alert
           key="success"
@@ -272,9 +288,9 @@ const ManageChild = () => {
                 </Button>
               </Modal.Footer>
             </Modal>
-            {children.map((child) => {
+            {/* {children.map((child) => {
               return <ChildCard />;
-            })}
+            })} */}
           </Card.Body>
         </Card>
       </div>

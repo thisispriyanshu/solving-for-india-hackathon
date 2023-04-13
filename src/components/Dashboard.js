@@ -13,6 +13,8 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import ManageChild from "./ManageChild";
 import Graph from "./Graph";
+import BarcodeScanner from "./BarcodeScanner";
+import QRcodeScanner from "./QRcodeScanner";
 
 const Dashboard = () => {
   const params = useParams();
@@ -25,6 +27,13 @@ const Dashboard = () => {
   const [role, setRole] = useState("");
   const [balance, setBalance] = useState("");
   const navigate = useNavigate();
+  // IF ROLE = PARENT -->  balance, expense,
+  // Name
+  // Balance
+  // Expenses
+  // Expense History Graph
+  // Manage Child
+  // Transaction History
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +55,15 @@ const Dashboard = () => {
     };
     fetchData();
   });
-
+  const handleBarCodeGen = () => {
+    navigate("/bgenerate");
+  };
+  const handleBarCodeScan = () => {
+    navigate("/bscan");
+  };
+  const handleQRcodeScan = () => {
+    navigate("/qscan");
+  };
   const logout = async (e) => {
     await signOut(auth);
     navigate("/login");
@@ -75,37 +92,51 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
-          <div class="col-md-4 p-1 me-auto">
-            <div class="card p-3">
-              <div class="card-block">
-                <h4 class="card-title text-primary">Expenses</h4>
-                <h5 class="card-subtitle">Rs. 444</h5>
+          {(role === "Parent" || role === "Children") && (
+            <div class="col-md-4 p-1 me-auto">
+              <div class="card p-3">
+                <div class="card-block">
+                  <h4 class="card-title text-primary">Expenses</h4>
+                  <h5 class="card-subtitle">Rs. 444</h5>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
         <br></br>
-        <div class="col-md-7 p-1 mx-auto">
-          <div class="card p-3">
-            <div class="card-block">
-              <h4 class="card-title text-primary">Expense Graph</h4>
-              <div>
-                {/* <img src={chart}></img> */}
-                <Graph/>
+        {role === "Parent" && (
+          <div class="col-md-7 p-1 mx-auto">
+            <div class="card p-3">
+              <div class="card-block">
+                <h4 class="card-title text-primary">Expense Graph</h4>
+                <div>
+                  {/* <img src={chart}></img> */}
+                  <Graph />
+                </div>
               </div>
             </div>
           </div>
+        )}
+      </div>
+      {role === "Merchant" && (
+        <div className="my-2" style={{ textAlign: "center" }}>
+          <button className="m-2 btn btn-primary" onClick={handleBarCodeGen}>
+            BarCode Generator
+          </button>
+          <button className="m-2 btn btn-primary" onClick={handleBarCodeScan}>
+            BarCode Scanner
+          </button>
         </div>
-      </div>
+      )}
+
       <div className="my-2" style={{ textAlign: "center" }}>
-        <button className="m-2 btn btn-primary">BarCode Generator</button>
-        <button className="m-2 btn btn-primary">BarCode Scanner</button>
+        {role === "Children" && (
+          <button className="m-2 btn btn-primary" onClick={handleQRcodeScan}>
+            QRCode Scanner
+          </button>
+        )}
       </div>
-      <div className="my-2" style={{ textAlign: "center" }}>
-        <button className="m-2 btn btn-primary">QRCode Generator</button>
-        <button className="m-2 btn btn-primary">QRCode Scanner</button>
-      </div>
-      <ManageChild />
+      {role === "Parent" && <ManageChild />}
       <br />
       <div className="container">
         <h3>Transaction History</h3>
