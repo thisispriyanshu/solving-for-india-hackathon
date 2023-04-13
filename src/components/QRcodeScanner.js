@@ -7,6 +7,7 @@ const QRcodeScanner = () => {
   return (
     <>
       <QrReader
+        facingMode="rear"
         onResult={(result, error) => {
           if (!!result) {
             setData(result?.text);
