@@ -59,6 +59,9 @@ const Dashboard = () => {
     };
     fetchData();
   });
+  const handleAddProduct = () => {
+    navigate("/addproduct");
+  };
   const handleBarCodeGen = () => {
     navigate("/bgenerate");
   };
@@ -148,6 +151,9 @@ const Dashboard = () => {
         </div>
         {role === "Merchant" && (
           <div className="my-2" style={{ textAlign: "center" }}>
+            <button className="m-2 btn btn-primary" onClick={handleAddProduct}>
+              Add Product
+            </button>
             <button className="m-2 btn btn-primary" onClick={handleBarCodeGen}>
               BarCode Generator
             </button>

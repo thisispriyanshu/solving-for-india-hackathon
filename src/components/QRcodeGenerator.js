@@ -1,25 +1,15 @@
 import React, { useState } from 'react'
 import QRCode from 'react-qr-code';
 
-export default function QRcodeGenerator() {
-    const [value,setValue]=useState("")
+export default function QRcodeGenerator(props) { 
     return (
     <div>
-       <div><span>QR Code Generator</span></div> 
-       <br/>
-        <div>
-     <input
-          type="text"
-          onChange={(e) => setValue(e.target.value)}
-          placeholder="Value of Qr-code"
-        />  
-        </div>
         <div>
             <br/>
-    {value && (
+    {props && (
           <QRCode
             title="Family Pay"
-            value={value}
+            value={props}
             bgColor="white"
             fgColor="black"
             size="200"
