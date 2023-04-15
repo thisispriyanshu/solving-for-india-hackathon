@@ -59,6 +59,9 @@ const Dashboard = () => {
     };
     fetchData();
   });
+  const handleCart = () => {
+    navigate("/cart");
+  };
   const handleAddProduct = () => {
     navigate("/" + params.id + "/addproduct");
   };
@@ -157,8 +160,8 @@ const Dashboard = () => {
             <button className="m-2 btn btn-primary" onClick={handleBarCodeGen}>
               BarCode Generator
             </button>
-            <button className="m-2 btn btn-primary" onClick={handleBarCodeScan}>
-              BarCode Scanner
+            <button className="m-2 btn btn-primary" onClick={handleCart}>
+              Cart
             </button>
           </div>
         )}
