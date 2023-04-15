@@ -4,26 +4,27 @@ import { Form, Button, Card, Alert } from "react-bootstrap";
 import { Container } from "react-bootstrap";
 import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
+import { useParams } from "react-router-dom";
 
 const AddProduct = () => {
+  const params = useParams();
   const [name, setName] = useState("");
   const [amount, setAmount] = useState(0);
   const [safeForChild, setSafeForChild] = useState(true);
-  const [error,setError] = useState("")
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const register = async (e) => {
     e.preventDefault();
     try {
-        setError("Added product sucessfully");
-        const saved = await addDoc(collection(db, "products"), {
-          uid: saved.uid,
-          authProvider: "local",
-          name:name,
-          amount:amount,
-          safeForChild:safeForChild,
-        });
-        navigate("/addproduct");
+      setError("Added product sucessfully");
+      const saved = await addDoc(collection(db, "products"), {
+        authProvider: "local",
+        name: name,
+        amount: amount,
+        safeForChild: safeForChild,
+      });
+      navigate("/" + params.id + "/dashboard");
     } catch (error) {
       setError(error);
     }

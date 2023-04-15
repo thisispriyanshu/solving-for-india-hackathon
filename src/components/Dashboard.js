@@ -60,7 +60,7 @@ const Dashboard = () => {
     fetchData();
   });
   const handleAddProduct = () => {
-    navigate("/addproduct");
+    navigate("/" + params.id + "/addproduct");
   };
   const handleBarCodeGen = () => {
     navigate("/bgenerate");
