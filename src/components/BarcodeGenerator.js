@@ -6,7 +6,7 @@ import GetAppIcon from '@mui/icons-material/GetApp';
 import { useBarcode } from 'next-barcode'
 
 function BarcodeGenerator() {
-    const [barcode, setBarcode] = useState('parle-g_10');
+    const [barcode, setBarcode] = useState("Paste Your Product Id");
     const handleChange = (event) => {
         setBarcode(event.target.value ? event.target.value : '');
     };

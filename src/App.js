@@ -11,6 +11,7 @@ import BarcodeScanner from "./components/BarcodeScanner";
 import BarcodeGenerator from "./components/BarcodeGenerator";
 import QRcodeGenerator from "./components/QRcodeGenerator";
 import QRcodeScanner from "./components/QRcodeScanner";
+import AddProduct from "./components/AddProduct";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               <Route path="/:id/dashboard" Component={Dashboard} />
               <Route path="/dashboard" Component={Dashboard} />
               <Route path="/detailsUser" Component={DetailsUser} />
+              <Route path="/addproduct" Component={AddProduct} />
             </Routes>
           </BrowserRouter>
         </div>
