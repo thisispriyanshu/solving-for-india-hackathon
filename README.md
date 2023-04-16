@@ -1,6 +1,7 @@
 # Currently the deployed link is not working. Kindly run our app on localhost. 
-You can add .env file in root folder. And keys are provided in below doc link. Which you can request access.
+You can add .env file in root folder. And keys are provided in below doc link.
 Doc Link -: https://docs.google.com/document/d/15BgtApwTpSeXfnyWHHfv9HrKDAHodBdYPJdxcg9FV74/edit?usp=sharing
+
 ## PayTogether
 #### Signup with firebase
 #### Data getting stored in firestore DB
